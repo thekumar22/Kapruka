@@ -1,0 +1,10 @@
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/pageObjects/BasePage.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/pageObjects/CreateAccountPage.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/pageObjects/HomePage.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/pageObjects/LoginPage.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/pageObjects/MyAccountPage.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/testBase/BaseClass.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/testCases/TC001_CreateAccountTest.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/testCases/TC002_LoginTest.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/utilities/ExcelUtils.java
+/Users/thekumar/eclipse-workspace/Kapruka/src/test/java/utilities/ExtentReportManager.java
