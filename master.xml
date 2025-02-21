@@ -9,7 +9,7 @@
   <test thread-count="5" name="Test">
 
     <parameter name= "os" value= "mac"/>
-    <parameter name= "browser" value= "chrome"/>
+    <parameter name= "browser" value= "firefox"/>
   
     <classes>
    <!--  <class name="testCases.TC001_CreateAccountTest"/> -->
