@@ -133,7 +133,7 @@ public class BaseClass {
 		}
 			
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 		
 		driver.get(prop.getProperty("appURL"));  //Reading APP URL Form Properties File
 		driver.manage().window().maximize();

@@ -103,7 +103,7 @@ public class ExtentReportManager implements ITestListener{
 	}
 	
 	
-	public void onTestSucess(ITestResult result) {
+	public void onTestSuccess(ITestResult result) {
 		
 		test= extent.createTest(result.getTestClass().getName());
 		test.assignCategory(result.getMethod().getGroups());
@@ -146,7 +146,7 @@ public class ExtentReportManager implements ITestListener{
 	}
 		
 	
-	public void onTestFinished(ITestResult result) {
+	public void onFinish(ITestContext testContext) {
 		
 		
 		extent.flush();
