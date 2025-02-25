@@ -28,11 +28,12 @@ public class MyAccountPage extends BasePage{
 		
 		try {
 			
-			System.out.println("Account Name Display Status is : "+ AccountName.isDisplayed());
+			System.out.println("Account Name Display Status is: "+ AccountName.isDisplayed());
 			return AccountName.isDisplayed();	
 		}
 		catch(Exception e) {
 			
+			System.out.println("Account Name Display Status is: "+ false);
 			return false;
 		}
 	}

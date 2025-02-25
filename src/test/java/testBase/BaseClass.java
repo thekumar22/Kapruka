@@ -35,7 +35,7 @@ public class BaseClass {
 		
 		//Loading Config.properties File
 		
-		FileReader file= new FileReader("./src//test//resources//Config.properties");
+		FileReader file= new FileReader("./src/test/resources/Config.properties");
 		prop=new Properties();
 		prop.load(file);
 		
@@ -177,7 +177,7 @@ public class BaseClass {
 		TakesScreenshot takCcreenshot= (TakesScreenshot) driver;
 		File sourceFile=takCcreenshot.getScreenshotAs(OutputType.FILE);
 		
-		String targetFilePath=System.getProperty("user.dir") + "//screenshots//" + tName + "_" + currentDateTimeSpam + ".png";
+		String targetFilePath=System.getProperty("user.dir") + "/screenshots/" + tName + "_" + currentDateTimeSpam + ".png";
 		System.out.println("Target File Path is : " + targetFilePath);
 		File targetFile=new File(targetFilePath);
 				

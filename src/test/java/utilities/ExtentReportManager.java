@@ -50,7 +50,7 @@ public class ExtentReportManager implements ITestListener{
 		reportName= "Automation Test Report on- " + currentDateTimeSpam + ".html";
 		System.out.println("Report Name is: "+ reportName);
 		
-        reportPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + reportName;
+        reportPath = System.getProperty("user.dir") + File.separator + "extentReports" + File.separator + reportName;
         sparkReporter = new ExtentSparkReporter(reportPath);  // Location of Report
         System.out.println("Report Path: " + reportPath);
 
@@ -99,7 +99,6 @@ public class ExtentReportManager implements ITestListener{
 
 		}
 		
-		System.out.println("On Start Fininshed");
 
 	}
 	
@@ -108,11 +107,8 @@ public class ExtentReportManager implements ITestListener{
 		
 		test= extent.createTest(result.getTestClass().getName());
 		test.assignCategory(result.getMethod().getGroups());
-		test.log(Status.PASS, result.getName() + " Got Successfully Executed.!");
+		test.log(Status.PASS, result.getName() + " Successfully Executed and Got Passed.!");
 		
-		
-		System.out.println("In Success");
-
 	}
 	
 	
@@ -121,8 +117,12 @@ public class ExtentReportManager implements ITestListener{
 		test= extent.createTest(result.getTestClass().getName());
 		test.assignCategory(result.getMethod().getGroups());
 		
-		test.log(Status.FAIL, result.getName() + " Got Failed...");
+		test.log(Status.FAIL, result.getName() + " Got Failed.!!!");
 		test.log(Status.INFO, result.getThrowable().getMessage());
+		
+		//Printing Failure Message on Console->
+		System.out.println(result.getThrowable().getMessage());
+
 		
 		//Capturing Screenshot of failed test cases and attaching to the report
 		try {
@@ -141,9 +141,9 @@ public class ExtentReportManager implements ITestListener{
 		
 		test= extent.createTest(result.getClass().getName());
 		test.assignCategory(result.getMethod().getGroups());
-		test.log(Status.SKIP, result.getName()+ " Got Skipped!!!");
+		test.log(Status.SKIP, result.getName()+ " Got Skipped...");
 		test.log(Status.INFO, result.getThrowable().getMessage());
-		
+
 	}
 		
 	
@@ -153,7 +153,7 @@ public class ExtentReportManager implements ITestListener{
 		extent.flush();
 		
 		//Opening Report Automatically
-		String extentReportPath=System.getProperty("user.dir") + "/reports/" +reportName;
+		String extentReportPath=System.getProperty("user.dir") + "/extentReports/" +reportName;
 		File extentReportFile=new File(extentReportPath);
 		
 		try {
