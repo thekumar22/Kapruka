@@ -32,6 +32,7 @@ public class ExtentReportManager implements ITestListener{
 	public ExtentTest test;
 	
 	String reportName;
+	String reportPath;
 	
 	public void onStart(ITestContext testContext) {
 		
@@ -49,7 +50,7 @@ public class ExtentReportManager implements ITestListener{
 		reportName= "Automation Test Report on- " + currentDateTimeSpam + ".html";
 		System.out.println("Report Name is: "+ reportName);
 		
-        String reportPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + reportName;
+        reportPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + reportName;
         sparkReporter = new ExtentSparkReporter(reportPath);  // Location of Report
         System.out.println("Report Path: " + reportPath);
 
@@ -152,43 +153,69 @@ public class ExtentReportManager implements ITestListener{
 		extent.flush();
 		
 		//Opening Report Automatically
-		String extentReportPath=System.getProperty("user.dir") + "//reports//" +reportName;
-		File extentReport=new File(extentReportPath);
+		String extentReportPath=System.getProperty("user.dir") + "/reports/" +reportName;
+		File extentReportFile=new File(extentReportPath);
 		
 		try {
 			
-			Desktop.getDesktop().browse(extentReport.toURI());
+			 if (Desktop.isDesktopSupported()) {
+			        Desktop.getDesktop().browse(extentReportFile.toURI());
+			  } else {
+			        System.err.println("Desktop browsing is not supported on this system.");
+			  }
 		}catch(Exception e) {
 			
 			e.printStackTrace();
 		}
 		
-		/*
+		
 		//Sending Report on E-Mail Automatically
 		try {
 			
-			URL url=new URL("file:'///" + System.getProperty("user.dir"+"\\reports"+ reportName));
-			
+			// Construct file path
+		    File reportFile = new File(extentReportPath);
+
+		    // Ensure the file exists before using it
+		    if (!reportFile.exists()) {
+		        System.err.println("Report file not found: " + extentReportPath);
+		        return; // Stop execution if file is missing
+		    }
+
+		    // Convert file path to URL
+		    URL url = reportFile.toURI().toURL();
+
+						
+		    
+		    /*
 			//Create the E-Mail Message
 			ImageHtmlEmail email= new ImageHtmlEmail();
 			email.setDataSourceResolver(new DataSourceUrlResolver(url));
-			email.setHostName("smtp.google.com");
-			email.setSmtpPort(465);
+//			email.setHostName("smtp.google.com");
+//			email.setSmtpPort(465);
+			
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(587);
 			email.setAuthenticator(new DefaultAuthenticator("thekumarchavan@gmail.com", "Kumar@0125"));
-			email.setSSLOnConnect(true);
+			email.setStartTLSEnabled(true);
 			email.setFrom("thekumarchavan@gmail.com"); //Sender
 			email.setSubject("Test Report by QA Kumar");
 			email.setMsg("Please find attached testing repot.!");
 			email.addTo("rukhsartamboli11@gmail.com"); //Receiver
+			email.addCc("thekumarchavan@gmail.com", "cc2@example.com"); // Add CC recipients
+
 			email.attach(url, "Extent Report", "Please Check Report");
 			email.send(); //Send the E-Mail
 			
 			System.out.println("E-Mail Sent Successfully.!");
 			
+			*/
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
-		*/
+		
+		
+		
 	}
 }
