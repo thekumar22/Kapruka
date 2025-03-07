@@ -18,8 +18,8 @@ public class MyAccountPage extends BasePage{
 	@FindBy (xpath="//h1[@class='acc_name acN']")
 	WebElement AccountName;
 	
-	@FindBy (xpath="")
-	WebElement abc;
+	@FindBy (xpath="//a[@class='blockWrap logOut']")
+	WebElement btnLogout;
 	
 	
 	//Action Methods:-
@@ -37,5 +37,10 @@ public class MyAccountPage extends BasePage{
 			return false;
 		}
 	}
+	
+	public void clickOnLogoutButton() {
+		
+		btnLogout.click();
+}	
 
 }

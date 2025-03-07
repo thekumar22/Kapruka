@@ -1,57 +1,73 @@
 package utilities;
 
-import java.io.FileOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.poi.sl.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 
 public class ExcelUtils {
+    private Workbook workbook;
+    private Sheet sheet;
 
-	public static void main(String[] args) {
-
-		// Create a new workbook (XSSFWorkbook for .xlsx)
-        XSSFWorkbook workbook = new XSSFWorkbook();
-
-        // Create a sheet
-        Sheet sheet = (Sheet) workbook.createSheet("Sheet1");
-
-        // Create a row (row 0)
-        Row row = ((XSSFSheet) sheet).createRow(0);
-
-        // Create cells and set values in row 0
-        Cell cell1 = row.createCell(0);
-        cell1.setCellValue("Hello");
-
-        Cell cell2 = row.createCell(1);
-        cell2.setCellValue("World");
-
-        // Create another row (row 1)
-        Row row2 = ((XSSFSheet) sheet).createRow(1);
-
-        // Create cells in row 1
-        Cell cell3 = row2.createCell(0);
-        cell3.setCellValue("Java");
-
-        Cell cell4 = row2.createCell(1);
-        cell4.setCellValue("Excel");
-
-        // Write the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream("example.xlsx")) {
-            workbook.write(fileOut);
-            System.out.println("Excel file created successfully.");
+    // Constructor to load the Excel file
+    public ExcelUtils(String filePath, String sheetName) {
+        try {
+            FileInputStream file = new FileInputStream(new File(filePath));
+            workbook = WorkbookFactory.create(file);
+            sheet = workbook.getSheet(sheetName);
+            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        // Closing workbook
-        try {
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    // Get the total row count
+    public int getRowCount() {
+        int rowCount = 0;
+        for (Row row : sheet) {
+            if (row.getCell(0) != null && !row.getCell(0).toString().trim().isEmpty()) {
+                rowCount++;
+            }
+        }
+        return rowCount - 1; // Subtract 1 to exclude the header row
+    }
+
+	 // Get the total column count (ignoring empty columns)
+    public int getColumnCount() {
+        Row firstRow = sheet.getRow(0);
+        int count = 0;
+        if (firstRow != null) {
+            for (Cell cell : firstRow) {
+                if (!cell.toString().trim().isEmpty()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
+    // Get specific cell data as String
+    public String getCellData(int rowNumber, int colNumber) {
+        Row row = sheet.getRow(rowNumber);
+        if (row != null) {
+            Cell cell = row.getCell(colNumber);
+            if (cell != null) {
+                DataFormatter formatter = new DataFormatter();
+                return formatter.formatCellValue(cell); // ✅ Returning formatted value
+            }
+        }
+        return ""; // ✅ Return empty string instead of error message
+    }
+
+    // Print all Excel data
+    public void printExcelData() {
+        for (int i = 0; i <= getRowCount(); i++) {
+            for (int j = 0; j < getColumnCount(); j++) {
+                System.out.print(getCellData(i, j) + "\t");
+            }
+            System.out.println();
         }
     }
 }

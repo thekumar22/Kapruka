@@ -30,11 +30,13 @@ public class LoginPage extends BasePage{
 	
 	public void setEmail(String emailAddress) {
 		
+		Email.clear();
 		Email.sendKeys(emailAddress);
 	}
 	
 	public void setPassword(String createPassword) {
 		
+		Password.clear();
 		Password.sendKeys(createPassword);		
 	}
 	
